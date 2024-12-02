@@ -4,7 +4,9 @@ import Home from '../components/Home.vue';
 import Register from '../components/Auth/Register.vue';
 import Login from '../components/Auth/Login.vue';
 import NotFound from '../components/Errors/404.vue';
-import Dashboard from '../components/Dashboard.vue';
+import Dashboard from '../components/Dashboard/Dashboard.vue';
+import ProductList from '../components/Product/ProductList.vue'
+import CategoryList from '../components/Category/CategoryList.vue'
 import store from '../store/index.js';
 
 const routes = [
@@ -37,6 +39,22 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/products',
+        name: 'product',
+        component: ProductList,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/category',
+        name: 'category',
+        component: CategoryList,
         meta: {
             requiresAuth: true
         }

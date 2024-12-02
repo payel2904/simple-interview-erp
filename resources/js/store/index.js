@@ -1,5 +1,7 @@
 import { createStore } from 'vuex';
-
+import storeCategoryModule from "../components/Category/storeCategoryModule.js";
+import storeProductModule from "../components/Product/storeProductModule.js";
+import storeDashboardModule from "../components/Dashboard/storeDashboardModule.js";
 export default createStore({
 
     state: {
@@ -63,6 +65,11 @@ export default createStore({
 
     getters: {
         authStatus: state => state.isAuthenticated
-    }
+    },
 
+    modules: {
+        category: storeCategoryModule,
+        product: storeProductModule,
+        dashboard: storeDashboardModule,
+    },
 });

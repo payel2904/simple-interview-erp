@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -14,8 +13,17 @@ class ProductController extends Controller
      */
     public function index(): JsonResponse
     {
-        if ($products = Product::select('id', 'name', 'sku', 'quantity', 'price')->with('category:id,name')->get()->toArray(1)) {
-            return $this->successJsonResponse('Product Found', $products);
+        $currentPage = request()->exists('page') ? request()->query('page') : null;
+
+        if ($products = Product::select('id', 'name', 'sku', 'quantity', 'price', 'category_id')
+            ->with('category:id,name')
+            ->when($currentPage, function ($query, $currentPage) {
+                return $query->paginate(10);
+            }, function ($query) {
+                return $query->get();
+            })) {
+            $total = $currentPage ? $products->total() : count($products);
+            return $this->successJsonResponse('Product Found', $products, $total);
         }
 
         return $this->errorJsonResponse('Product Not Found');
@@ -50,7 +58,7 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
-        if ($product->fill($validated)->save()) {
+        if ($product->update($validated)) {
             return $this->successJsonResponse('Product Updated Successfully', $product);
         }
 

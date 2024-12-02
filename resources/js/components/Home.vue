@@ -9,7 +9,7 @@
                     </div>
 
                     <div class="card-body">
-                        <p class="card-text">Welcome to the Laravel 10 and Vuejs App Homepage.</p>
+                        <p class="card-text">Welcome Back.</p>
                     </div>
 
                 </div>

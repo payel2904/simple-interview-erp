@@ -12,6 +12,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "process": "^0.11.10",
         "vue-router": "^4.2.5",
         "vuex": "^4.0.2"
     }

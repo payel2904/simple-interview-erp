@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('dashboard', [DashboardController::class, 'index']);
 Route::resource('category', CategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
-Route::resource('product', ProductController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+Route::resource('products', ProductController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);

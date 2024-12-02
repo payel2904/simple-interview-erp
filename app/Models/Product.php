@@ -13,8 +13,14 @@ class Product extends Model
 
     protected $fillable = ['name', 'sku', 'quantity', 'price', 'category_id'];
 
+    protected $appends = ['price'];
+
+    public function getPriceAttribute()
+    {
+        return number_format($this->attributes['price'], 2, '.', '');
+    }
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

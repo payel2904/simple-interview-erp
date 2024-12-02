@@ -21,6 +21,11 @@ Create databse connection and migrate tables:
 
     php artisan migrate
 
+Run For Sample Data
+
+    php artisan db:seed
+
 Run the application:
 
     php artisan serve
+

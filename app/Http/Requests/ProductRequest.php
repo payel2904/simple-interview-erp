@@ -6,6 +6,7 @@ use App\Exceptions\ValidationException;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductRequest extends FormRequest
 {
@@ -24,9 +25,9 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        return  [
             'name' => ['required', 'string', 'max:120'],
-            'sku' => ['required', 'string', 'max:120'],
+            'sku' => ['required', 'string', 'max:120', Rule::unique('products')->ignore($this->route('product'))], // Ignore SKU uniqueness if it's the same product being updated
             'quantity' => ['required', 'numeric', 'min:1'],
             'price' => ['required', 'numeric', 'min:1'],
             'category_id' => ['required', 'exists:categories,id'],
